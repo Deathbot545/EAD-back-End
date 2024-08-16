@@ -1,9 +1,7 @@
 package com.example.User_Service.Model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -13,18 +11,25 @@ import java.sql.Timestamp;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false, unique = true)
     private String email;
 
-    private String password_hashs;
+    @Column(name = "password_hashs", nullable = false)
+    private String password;
 
-    private String role;  // Assuming role is stored as a String, change to Enum type if needed
+    @Column(nullable = false)
+    private String role;
 
+    @Column(name = "created_at")
     private Timestamp created_at;
 
+    @Column(name = "updated_at")
     private Timestamp updated_at;
 
     // Getters and Setters
@@ -53,12 +58,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword_hashs() {
-        return password_hashs;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassword_hashs(String password_hashs) {
-        this.password_hashs = password_hashs;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getRole() {
@@ -85,3 +90,4 @@ public class User {
         this.updated_at = updated_at;
     }
 }
+

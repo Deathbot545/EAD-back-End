@@ -41,7 +41,7 @@ public class UserService {
 
     public User authenticateUser(String email, String password) {
         // Updated method name to match repository method
-        Optional<User> user = userRepository.findByEmailAndPassword_hashs(email, password);
+        Optional<User> user = userRepository.findByEmailAndPassword(email, password);
         return user.orElse(null);
     }
 
@@ -51,7 +51,7 @@ public class UserService {
             User user = existingUser.get();
             user.setName(updatedUser.getName());
             user.setEmail(updatedUser.getEmail());
-            user.setPassword_hashs(updatedUser.getPassword_hashs());
+            user.setPassword(updatedUser.getPassword());
             return userRepository.save(user);
         }
         return null;
