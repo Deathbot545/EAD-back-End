@@ -1,10 +1,7 @@
 package com.example.Profile_Service.Model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
@@ -14,8 +11,8 @@ import java.util.UUID;
 public class Profile {
 
     @Id
-    @Column(name = "user_id", nullable = false)
-    private UUID userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -37,12 +34,12 @@ public class Profile {
 
     // Getters and Setters
 
-    public UUID getUserId() {
-        return userId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUserId(UUID userId) {
-        this.userId = userId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -93,3 +90,4 @@ public class Profile {
         this.portfolio = portfolio;
     }
 }
+

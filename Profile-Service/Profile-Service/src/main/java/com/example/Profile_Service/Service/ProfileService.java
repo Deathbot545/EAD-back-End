@@ -16,22 +16,20 @@ public class ProfileService {
     @Autowired
     private ProfileRepository profileRepository;
 
-    public Optional<
-                Profile> getProfileByUserId(UUID userId) {
-        return profileRepository.findById(userId.hashCode());
+    public Optional<Profile> getProfileByUserId(Integer userId) {
+        return profileRepository.findById(userId);
     }
 
-    public Profile updateProfile(UUID userId, Profile profile) {
-        int userIdHash = userId.hashCode();
-        if (!profileRepository.existsById(userIdHash)) {
+    public Profile updateProfile(Integer userId, Profile profile) {
+        if (!profileRepository.existsById(userId)) {
             throw new EntityNotFoundException("Profile not found for user ID: " + userId);
         }
-        profile.setUserId(userId);
+        profile.setId(userId);
         return profileRepository.save(profile);
     }
 
-    public Profile addPortfolioItem(UUID userId, String portfolioItem) {
-        Profile profile = profileRepository.findById(userId.hashCode())
+    public Profile addPortfolioItem(Integer userId, String portfolioItem) {
+        Profile profile = profileRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("Profile not found for user ID: " + userId));
 
         String currentPortfolio = profile.getPortfolio();
