@@ -5,9 +5,10 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+
 @Entity
 @Table(name = "services")
-public class Service {
+public class ListService {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
