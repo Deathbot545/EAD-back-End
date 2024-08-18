@@ -7,30 +7,34 @@ spring:
         - id: user-service
           uri: http://localhost:8081
           predicates:
-            - Path=/users/**
+            - Path=/User/**  # Matches /User context path
           filters:
-            - RewritePath=/users/(?<segment>.*), /${segment}
+            - RewritePath=/User/(?<segment>.*), /${segment}  # Removes /User
+
         - id: profile-service
           uri: http://localhost:8082
           predicates:
-            - Path=/profiles/**
+            - Path=/Profile/**  # Matches /Profile context path
           filters:
-            - RewritePath=/profiles/(?<segment>.*), /${segment}
-        - id: service3
+            - RewritePath=/Profile/(?<segment>.*), /${segment}  # Removes /Profile
+
+        - id: list-service
           uri: http://localhost:8083
           predicates:
-            - Path=/service3/**
+            - Path=/ListService/**  # Matches /ListService context path
           filters:
-            - RewritePath=/service3/(?<segment>.*), /${segment}
-        - id: service4
+            - RewritePath=/ListService/(?<segment>.*), /${segment}  # Removes /ListService
+
+        - id: order-service
           uri: http://localhost:8084
           predicates:
-            - Path=/service4/**
+            - Path=/Order/**  # Matches /Order context path
           filters:
-            - RewritePath=/service4/(?<segment>.*), /${segment}
-        - id: service5
+            - RewritePath=/Order/(?<segment>.*), /${segment}  # Removes /Order
+
+        - id: payment-service
           uri: http://localhost:8085
           predicates:
-            - Path=/service5/**
+            - Path=/Payment/**  # Matches /Payment context path
           filters:
-            - RewritePath=/service5/(?<segment>.*), /${segment}
+            - RewritePath=/Payment/(?<segment>.*), /${segment}  # Removes /Payment
