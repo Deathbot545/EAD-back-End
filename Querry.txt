@@ -9,6 +9,17 @@ CREATE TABLE "user" (
 );
 
 
+CREATE TABLE profiles (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    bio TEXT,
+    skills TEXT,
+    experience TEXT,
+    portfolio JSON
+);
+
+
 CREATE TABLE services (
     id SERIAL PRIMARY KEY,
     freelancer_id INTEGER NOT NULL,
@@ -18,17 +29,6 @@ CREATE TABLE services (
     price NUMERIC(10, 2) NOT NULL,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
-);
-
-
-CREATE TABLE profiles (
-    id SERIAL PRIMARY KEY,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
-    bio TEXT,
-    skills TEXT,
-    experience TEXT,
-    portfolio JSON
 );
 
 
