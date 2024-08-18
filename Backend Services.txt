@@ -1,0 +1,135 @@
+Backend Services
+
+User Service
+
+Responsibilities: Manage user registration, authentication, and profile management.
+Endpoints:
+POST /users/register: Register a new user.
+POST /users/login: Authenticate a user.
+GET /users/{id}: Retrieve user profile.
+PUT /users/{id}: Update user profile.
+DELETE /users/{id}: Delete a user.
+
+Profile Service
+
+Responsibilities: Manage detailed profiles for freelancers including skills, experience, and portfolios.
+Endpoints:
+GET /profiles/{userId}: Retrieve freelancer profile details.
+PUT /profiles/{userId}: Update freelancer profile details.
+POST /profiles/{userId}/portfolio: Add portfolio items.
+
+
+Service Listing Service
+
+Responsibilities: Manage service listings by freelancers.
+Endpoints:
+POST /services: Create a new service listing.
+GET /services/{id}: Retrieve a service listing.
+PUT /services/{id}: Update a service listing.
+DELETE /services/{id}: Delete a service listing.
+GET /services: List all services with filters (e.g., category, price).
+
+
+Order Service
+
+Responsibilities: Manage orders and transactions between buyers and freelancers.
+Endpoints:
+POST /orders: Place a new order.
+GET /orders/{id}: Retrieve order details.
+PUT /orders/{id}: Update order status.
+DELETE /orders/{id}: Cancel an order.
+
+
+Payment Service
+
+Responsibilities: Handle payment processing and transactions.
+Endpoints:
+POST /payments: Process a payment.
+GET /payments/{id}: Retrieve payment details.
+GET /payments/transactions: List all transactions.
+
+
+Notification Service
+
+Responsibilities: Send notifications (e.g., new orders, messages, updates).
+Endpoints:
+POST /notifications: Send a notification.
+GET /notifications/{userId}: Retrieve notifications for a user.
+
+Review Service
+
+Responsibilities: Manage reviews and ratings for freelancers and services.
+Endpoints:
+POST /reviews: Submit a review.
+GET /reviews/{serviceId}: Retrieve reviews for a service.
+GET /reviews/user/{userId}: Retrieve reviews by a user.
+
+
+
+Database Schema  :
+
+Users Table
+id: Integer (Primary Key)
+username: VARCHAR
+email: VARCHAR (Unique)
+password_hash: VARCHAR
+role: ENUM (e.g., 'buyer', 'freelancer', 'both')
+created_at: TIMESTAMP
+updated_at: TIMESTAMP
+
+
+Profiles Table
+user_id: Integer (Primary Key, Foreign Key referencing Users)
+first_name: VARCHAR
+last_name: VARCHAR
+bio: TEXT
+skills: TEXT (comma-separated or JSON)
+experience: TEXT
+portfolio: JSON
+
+
+Services Table
+id: Integer (Primary Key)
+freelancer_id: UUID (Foreign Key referencing Users)
+title: VARCHAR
+description: TEXT
+category: VARCHAR
+price: DECIMAL
+created_at: TIMESTAMP
+updated_at: TIMESTAMP
+
+
+Orders Table
+id: Integer (Primary Key)
+buyer_id: UUID (Foreign Key referencing Users)
+service_id: UUID (Foreign Key referencing Services)
+amount: DECIMAL
+status: ENUM (e.g., 'pending', 'completed', 'cancelled')
+created_at: TIMESTAMP
+updated_at: TIMESTAMP
+
+
+Payments Table
+id: Integer (Primary Key)
+order_id: UUID (Foreign Key referencing Orders)
+amount: DECIMAL
+status: ENUM (e.g., 'success', 'failed')
+transaction_id: VARCHAR
+created_at: TIMESTAMP
+
+
+Notifications Table
+id: Integer (Primary Key)
+user_id: UUID (Foreign Key referencing Users)
+message: TEXT
+read: BOOLEAN
+created_at: TIMESTAMP
+
+
+Reviews Table
+id: Integer (Primary Key)
+service_id: UUID (Foreign Key referencing Services)
+reviewer_id: UUID (Foreign Key referencing Users)
+rating: INT (1-5)
+comment: TEXT
+created_at: TIMESTAMP

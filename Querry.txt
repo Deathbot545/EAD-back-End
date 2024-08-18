@@ -1,0 +1,43 @@
+CREATE TABLE "user" (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hashs VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE services (
+    id SERIAL PRIMARY KEY,
+    freelancer_id INTEGER NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    category VARCHAR(255) NOT NULL,
+    price NUMERIC(10, 2) NOT NULL,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+);
+
+
+CREATE TABLE profiles (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    bio TEXT,
+    skills TEXT,
+    experience TEXT,
+    portfolio JSON
+);
+
+
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    buyer_id INTEGER,
+    service_id INTEGER,
+    amount DECIMAL(19, 2),
+    status VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+);
