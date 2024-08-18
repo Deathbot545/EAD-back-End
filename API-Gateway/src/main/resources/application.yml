@@ -1,3 +1,10 @@
+server:
+  port: 8086  # Change this to the port number you want the API Gateway to use
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+
 spring:
   application:
     name: api-gateway
@@ -7,37 +14,37 @@ spring:
         - id: user-service
           uri: http://localhost:8081
           predicates:
-            - Path=/User/**  # Matches /User context path
+            - Path=/api/users/**
           filters:
-            - RewritePath=/User/(?<segment>.*), /${segment}  # Removes /User
+            - RewritePath=/api/users/(?<segment>.*), /${segment}
 
         - id: profile-service
           uri: http://localhost:8082
           predicates:
-            - Path=/Profile/**  # Matches /Profile context path
+            - Path=/api/profiles/**
           filters:
-            - RewritePath=/Profile/(?<segment>.*), /${segment}  # Removes /Profile
+            - RewritePath=/api/profiles/(?<segment>.*), /${segment}
 
         - id: list-service
           uri: http://localhost:8083
           predicates:
-            - Path=/ListService/**  # Matches /ListService context path
+            - Path=/api/lists/**
           filters:
-            - RewritePath=/ListService/(?<segment>.*), /${segment}  # Removes /ListService
+            - RewritePath=/api/lists/(?<segment>.*), /${segment}
 
         - id: order-service
           uri: http://localhost:8084
           predicates:
-            - Path=/Order/**  # Matches /Order context path
+            - Path=/api/orders/**
           filters:
-            - RewritePath=/Order/(?<segment>.*), /${segment}  # Removes /Order
+            - RewritePath=/api/orders/(?<segment>.*), /${segment}
 
         - id: payment-service
           uri: http://localhost:8085
           predicates:
-            - Path=/Payment/**  # Matches /Payment context path
+            - Path=/api/payments/**
           filters:
-            - RewritePath=/Payment/(?<segment>.*), /${segment}  # Removes /Payment
+            - RewritePath=/api/payments/(?<segment>.*), /${segment}
 
   main:
     web-application-type: reactive
