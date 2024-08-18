@@ -38,3 +38,6 @@ spring:
             - Path=/Payment/**  # Matches /Payment context path
           filters:
             - RewritePath=/Payment/(?<segment>.*), /${segment}  # Removes /Payment
+
+  main:
+    web-application-type: reactive
