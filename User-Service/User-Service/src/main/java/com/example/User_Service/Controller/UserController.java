@@ -16,12 +16,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
+    @GetMapping(path = "/users")
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping(path = "/{userId}")
     public ResponseEntity<User> getUserWithId(@PathVariable("userId") int userId) {
         User user = userService.getUserfromId(userId);
         if (user != null) {
@@ -31,13 +31,13 @@ public class UserController {
         }
     }
 
-    @PostMapping("/register")
+    @PostMapping(path = "/register")
     public ResponseEntity<User> registerUser(@RequestBody User user) {
         User registeredUser = userService.registerUser(user);
         return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
     }
 
-    @PostMapping("/login")
+    @PostMapping(path = "/login")
     public ResponseEntity<User> loginUser(@RequestParam String email, @RequestParam String password) {
         User authenticatedUser = userService.authenticateUser(email, password);
         if (authenticatedUser != null) {
@@ -47,7 +47,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/{userId}")
+    @PutMapping(path = "/{userId}")
     public ResponseEntity<User> updateUserProfile(@PathVariable("userId") int userId, @RequestBody User updatedUser) {
         User user = userService.updateUser(userId, updatedUser);
         if (user != null) {
@@ -57,7 +57,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/{userId}")
+    @DeleteMapping(path = "/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable("userId") int userId) {
         boolean isDeleted = userService.deleteUser(userId);
         if (isDeleted) {
