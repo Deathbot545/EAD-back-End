@@ -14,6 +14,9 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "user_id", nullable = false, unique = true)
+    private Integer userId; // Add this field for correlation with User
+
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
@@ -40,6 +43,14 @@ public class Profile {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
@@ -90,4 +101,3 @@ public class Profile {
         this.portfolio = portfolio;
     }
 }
-

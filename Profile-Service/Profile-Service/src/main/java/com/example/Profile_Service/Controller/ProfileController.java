@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/profiles")
 public class ProfileController {
 
     @Autowired
@@ -25,6 +26,7 @@ public class ProfileController {
     @PutMapping("/{userId}")
     public ResponseEntity<Profile> updateProfile(@PathVariable Integer userId, @RequestBody Profile profile) {
         try {
+            profile.setUserId(userId); // Set userId, not id
             Profile updatedProfile = profileService.updateProfile(userId, profile);
             return ResponseEntity.ok(updatedProfile);
         } catch (EntityNotFoundException e) {

@@ -17,26 +17,26 @@ public class ProfileService {
     private ProfileRepository profileRepository;
 
     public Optional<Profile> getProfileByUserId(Integer userId) {
-        return profileRepository.findById(userId);
+        return profileRepository.findByUserId(userId);
     }
 
     public Profile updateProfile(Integer userId, Profile profile) {
-        if (!profileRepository.existsById(userId)) {
+        if (!profileRepository.existsByUserId(userId)) {
             throw new EntityNotFoundException("Profile not found for user ID: " + userId);
         }
-        profile.setId(userId);
+        profile.setUserId(userId); // Ensure userId is set
         return profileRepository.save(profile);
     }
 
     public Profile addPortfolioItem(Integer userId, String portfolioItem) {
-        Profile profile = profileRepository.findById(userId)
+        Profile profile = profileRepository.findByUserId(userId)
                 .orElseThrow(() -> new EntityNotFoundException("Profile not found for user ID: " + userId));
 
         String currentPortfolio = profile.getPortfolio();
         if (currentPortfolio == null || currentPortfolio.isEmpty()) {
             profile.setPortfolio("[" + portfolioItem + "]");
         } else {
-            profile.setPortfolio(currentPortfolio.substring(0, currentPortfolio.length() - 1) + ", " + portfolioItem + "]");
+            profile.setPortfolio(currentPortfolio.replaceFirst("\\]$", ", " + portfolioItem + "]")); // Ensure valid JSON format
         }
 
         return profileRepository.save(profile);
