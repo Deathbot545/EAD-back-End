@@ -41,3 +41,13 @@ CREATE TABLE orders (
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );
+
+CREATE TABLE payments (
+    id SERIAL PRIMARY KEY,
+    order_id INTEGER NOT NULL,
+    amount NUMERIC(19, 2) NOT NULL,
+    status VARCHAR(7) NOT NULL,
+    transaction_id VARCHAR(255) NOT NULL UNIQUE,
+    created_at TIMESTAMP NOT NULL
+);
+

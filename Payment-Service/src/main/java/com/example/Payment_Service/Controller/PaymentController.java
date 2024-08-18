@@ -1,7 +1,16 @@
 package com.example.Payment_Service.Controller;
 
+import com.example.Payment_Service.Model.Payment;
+import com.example.Payment_Service.Service.PaymentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
 @RestController
-@RequestMapping("/payments")
 public class PaymentController {
 
     @Autowired
