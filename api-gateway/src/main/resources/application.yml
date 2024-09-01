@@ -1,13 +1,11 @@
 server:
-  port: 8086  # Change this to the port number you want the API Gateway to use
+  port: 8086  # Port number for the API Gateway
 
 logging:
   level:
     org.springframework.cloud.gateway: TRACE
 
 spring:
-  application:
-    name: api-gateway
   cloud:
     gateway:
       routes:
@@ -46,5 +44,26 @@ spring:
           filters:
             - RewritePath=/api/payments/(?<segment>.*), /${segment}
 
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: 'http://localhost:5173'
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - '*'
+            allowCredentials: true
+
   main:
     web-application-type: reactive
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
