@@ -1,9 +1,6 @@
 package com.example.User_Service.Model;
 
-
 import jakarta.persistence.*;
-
-import java.sql.Time;
 import java.sql.Timestamp;
 
 @Entity
@@ -15,7 +12,13 @@ public class User {
     private Integer id;
 
     @Column(nullable = false)
-    private String name;
+    private String firstName; // Added First Name
+
+    @Column(nullable = false)
+    private String lastName; // Added Last Name
+
+    @Column(nullable = false)
+    private String name; // Full name if still needed
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -25,6 +28,9 @@ public class User {
 
     @Column(nullable = false)
     private String role;
+
+    @Column(nullable = false)
+    private String country; // Added Country
 
     @Column(name = "created_at")
     private Timestamp created_at;
@@ -40,6 +46,22 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getName() {
@@ -74,6 +96,14 @@ public class User {
         this.role = role;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public Timestamp getCreated_at() {
         return created_at;
     }
@@ -90,4 +120,3 @@ public class User {
         this.updated_at = updated_at;
     }
 }
-
