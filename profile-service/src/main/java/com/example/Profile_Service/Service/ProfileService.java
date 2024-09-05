@@ -3,6 +3,7 @@ package com.example.Profile_Service.Service;
 
 import com.example.Profile_Service.Model.Profile;
 import com.example.Profile_Service.Model.ProfileRepository;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,17 +29,15 @@ public class ProfileService {
         return profileRepository.save(profile);
     }
 
-    public Profile addPortfolioItem(Integer userId, String portfolioItem) {
-        Profile profile = profileRepository.findByUserId(userId)
-                .orElseThrow(() -> new EntityNotFoundException("Profile not found for user ID: " + userId));
 
-        String currentPortfolio = profile.getPortfolio();
-        if (currentPortfolio == null || currentPortfolio.isEmpty()) {
-            profile.setPortfolio("[" + portfolioItem + "]");
-        } else {
-            profile.setPortfolio(currentPortfolio.replaceFirst("\\]$", ", " + portfolioItem + "]")); // Ensure valid JSON format
+
+    public Profile createProfile(Profile profile) {
+        // Check if a profile for the user already exists
+        if (profileRepository.existsByUserId(profile.getUserId())) {
+            throw new EntityExistsException("Profile already exists for user ID: " + profile.getUserId());
         }
 
+        // Save the new profile
         return profileRepository.save(profile);
     }
 }

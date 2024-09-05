@@ -2,6 +2,7 @@ package com.example.User_Service.Service;
 
 import com.example.User_Service.Model.User;
 import com.example.User_Service.Model.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,10 +41,10 @@ public class UserService {
     }
 
     public User authenticateUser(String email, String password) {
-        // Updated method name to match repository method
         Optional<User> user = userRepository.findByEmailAndPassword(email, password);
         return user.orElse(null);
     }
+
 
     public User updateUser(int id, User updatedUser) {
         Optional<User> existingUser = userRepository.findById(id);
@@ -57,6 +58,16 @@ public class UserService {
         return null;
     }
 
+    public User updateUserRole(int userId, String newRole) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setRole(newRole);
+            return userRepository.save(user);
+        } else {
+            throw new EntityNotFoundException("User not found with ID: " + userId);
+        }
+    }
     public boolean deleteUser(int id) {
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);

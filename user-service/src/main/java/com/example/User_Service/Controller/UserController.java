@@ -1,6 +1,7 @@
 package com.example.User_Service.Controller;
 
 
+import com.example.User_Service.Model.LoginRequest;
 import com.example.User_Service.Model.User;
 import com.example.User_Service.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,14 +39,15 @@ public class UserController {
     }
 
     @PostMapping(path = "/login")
-    public ResponseEntity<User> loginUser(@RequestParam String email, @RequestParam String password) {
-        User authenticatedUser = userService.authenticateUser(email, password);
+    public ResponseEntity<User> loginUser(@RequestBody LoginRequest loginRequest) {
+        User authenticatedUser = userService.authenticateUser(loginRequest.getEmail(), loginRequest.getPassword());
         if (authenticatedUser != null) {
             return new ResponseEntity<>(authenticatedUser, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
+
 
     @PutMapping(path = "/{userId}")
     public ResponseEntity<User> updateUserProfile(@PathVariable("userId") int userId, @RequestBody User updatedUser) {

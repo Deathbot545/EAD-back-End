@@ -32,8 +32,6 @@ public class Profile {
     @Column(name = "experience", columnDefinition = "TEXT")
     private String experience;
 
-    @Column(name = "portfolio", columnDefinition = "JSON")
-    private String portfolio;
 
     // Getters and Setters
 
@@ -93,11 +91,4 @@ public class Profile {
         this.experience = experience;
     }
 
-    public String getPortfolio() {
-        return portfolio;
-    }
-
-    public void setPortfolio(String portfolio) {
-        this.portfolio = portfolio;
-    }
 }

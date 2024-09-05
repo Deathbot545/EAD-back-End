@@ -2,8 +2,10 @@ package com.example.Profile_Service.Controller;
 
 import com.example.Profile_Service.Model.Profile;
 import com.example.Profile_Service.Service.ProfileService;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,14 +35,16 @@ public class ProfileController {
         }
     }
 
-    @PostMapping("/{userId}/portfolio")
-    public ResponseEntity<Profile> addPortfolioItem(@PathVariable Integer userId, @RequestBody String portfolioItem) {
+    @PostMapping("/createProfile")
+    public ResponseEntity<Profile> createProfile(@RequestBody Profile profile) {
         try {
-            Profile updatedProfile = profileService.addPortfolioItem(userId, portfolioItem);
-            return ResponseEntity.ok(updatedProfile);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
+            Profile createdProfile = profileService.createProfile(profile);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdProfile);
+        } catch (EntityExistsException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
         }
     }
+
+
 }
 
