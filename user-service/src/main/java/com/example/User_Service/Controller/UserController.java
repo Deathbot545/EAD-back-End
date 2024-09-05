@@ -4,6 +4,7 @@ package com.example.User_Service.Controller;
 import com.example.User_Service.Model.LoginRequest;
 import com.example.User_Service.Model.User;
 import com.example.User_Service.Service.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,6 +66,15 @@ public class UserController {
         if (isDeleted) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @PutMapping("/{userId}/role")
+    public ResponseEntity<User> updateUserRole(@PathVariable int userId, @RequestBody String newRole) {
+        try {
+            User updatedUser = userService.updateUserRole(userId, newRole);
+            return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

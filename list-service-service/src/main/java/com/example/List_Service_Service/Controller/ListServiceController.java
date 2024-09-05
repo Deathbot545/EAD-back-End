@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,10 +20,31 @@ public class ListServiceController {
     @Autowired
     private ListServiceService listServiceService;
 
-    @PostMapping
-    public ResponseEntity<ListService> createListService(@RequestBody ListService listService) {
-        ListService createdService = listServiceService.createListService(listService);
-        return new ResponseEntity<>(createdService, HttpStatus.CREATED);
+    @PostMapping("/create") // You can add a descriptive path for creation if needed
+    public ResponseEntity<ListService> createService(
+            @RequestParam("title") String title,
+            @RequestParam("miniDescription") String miniDescription,
+            @RequestParam("description") String description,
+            @RequestParam("category") String category,
+            @RequestParam("price") BigDecimal price,
+            @RequestParam("coverImage") MultipartFile coverImage) {
+        try {
+            ListService service = new ListService();
+            service.setTitle(title);
+            service.setMiniDescription(miniDescription);
+            service.setDescription(description);
+            service.setCategory(category);
+            service.setPrice(price);
+            service.setCoverImage(coverImage.getBytes()); // Convert file to byte array
+            service.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+            service.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+
+            // Save the service using your service layer
+            ListService savedService = listServiceService.createListService(service);
+            return new ResponseEntity<>(savedService, HttpStatus.CREATED);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/{id}")

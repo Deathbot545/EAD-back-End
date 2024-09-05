@@ -13,7 +13,6 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
 public class ListServiceService {
 
@@ -48,8 +47,6 @@ public class ListServiceService {
 
     public List<ListService> listListServices(String category, BigDecimal minPrice, BigDecimal maxPrice) {
         // Custom query methods can be used to filter by category and price range
-        // For example, using Spring Data JPA query methods or a custom query
-        // This example assumes a custom query method might be defined in ListServiceRepository
         return listServiceRepository.findAll(); // Modify this as needed for filtering
     }
 }
