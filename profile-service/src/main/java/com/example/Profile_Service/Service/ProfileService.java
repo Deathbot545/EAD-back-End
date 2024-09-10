@@ -18,7 +18,8 @@ public class ProfileService {
     private ProfileRepository profileRepository;
 
     public Optional<Profile> getProfileByUserId(Integer userId) {
-        return profileRepository.findByUserId(userId);
+
+        return profileRepository.findById(userId);
     }
 
     public Profile updateProfile(Integer userId, Profile profile) {

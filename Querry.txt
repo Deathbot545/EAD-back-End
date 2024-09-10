@@ -24,11 +24,13 @@ CREATE TABLE services (
     id SERIAL PRIMARY KEY,
     freelancer_id INTEGER NOT NULL,
     title VARCHAR(255) NOT NULL,
+    mini_description TEXT, -- Added mini_description column
     description TEXT,
     category VARCHAR(255) NOT NULL,
+    cover_image MEDIUMBLOB, -- Allows storing larger images
     price NUMERIC(10, 2) NOT NULL,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Automatically sets the timestamp when a row is created
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- Automatically updates the timestamp when a row is modified
 );
 
 

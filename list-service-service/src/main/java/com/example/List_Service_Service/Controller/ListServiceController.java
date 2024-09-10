@@ -76,7 +76,7 @@ public class ListServiceController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping
+    @GetMapping("/services")
     public ResponseEntity<List<ListService>> listListServices(
             @RequestParam(required = false) String category,
             @RequestParam(required = false) BigDecimal minPrice,
