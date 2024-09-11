@@ -49,4 +49,8 @@ public class ListServiceService {
         // Custom query methods can be used to filter by category and price range
         return listServiceRepository.findAll(); // Modify this as needed for filtering
     }
+
+    public List<ListService> getServicesByFreelancerId(Integer freelancerId) {
+        return listServiceRepository.findByFreelancerId(freelancerId);
+    }
 }

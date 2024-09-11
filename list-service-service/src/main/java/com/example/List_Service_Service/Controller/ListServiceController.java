@@ -84,4 +84,12 @@ public class ListServiceController {
         List<ListService> services = listServiceService.listListServices(category, minPrice, maxPrice);
         return ResponseEntity.ok(services);
     }
+    @GetMapping("/services/freelancer/{freelancerId}")
+    public ResponseEntity<List<ListService>> getServicesByFreelancerId(@PathVariable Integer freelancerId) {
+        List<ListService> services = listServiceService.getServicesByFreelancerId(freelancerId);
+        if (services.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(services, HttpStatus.OK);
+    }
 }
