@@ -13,29 +13,27 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
+    // Buyer ID
     private Integer buyerId;
 
+    // Freelancer ID
+    private Integer freelancerId;
 
+    // Service ID
     private Integer serviceId;
 
+    // Order amount
+    private BigDecimal price;
 
-    private BigDecimal amount;
-
-    @Enumerated(EnumType.STRING)
+    // Order status as String
     @Column(nullable = false)
-    private Status status;
+    private String status;
 
-
+    // Order creation timestamp
     private Timestamp createdAt;
 
+    // Order update timestamp
     private Timestamp updatedAt;
-
-    public enum Status {
-        PENDING,
-        COMPLETED,
-        CANCELLED
-    }
 
     // Getters and Setters
 
@@ -55,6 +53,14 @@ public class Order {
         this.buyerId = buyerId;
     }
 
+    public Integer getFreelancerId() {
+        return freelancerId;
+    }
+
+    public void setFreelancerId(Integer freelancerId) {
+        this.freelancerId = freelancerId;
+    }
+
     public Integer getServiceId() {
         return serviceId;
     }
@@ -63,19 +69,19 @@ public class Order {
         this.serviceId = serviceId;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
