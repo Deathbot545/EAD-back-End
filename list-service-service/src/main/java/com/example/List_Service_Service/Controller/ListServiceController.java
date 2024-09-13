@@ -63,12 +63,54 @@ public class ListServiceController {
         return service.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
     @PutMapping("/{id}")
-    public ResponseEntity<ListService> updateListService(@PathVariable Integer id, @RequestBody ListService listService) {
-        ListService updatedService = listServiceService.updateListService(id, listService);
-        return ResponseEntity.ok(updatedService);
+    public ResponseEntity<?> updateListService(
+            @PathVariable Integer id,
+            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "miniDescription", required = false) String miniDescription,
+            @RequestParam(value = "description", required = false) String description,
+            @RequestParam(value = "category", required = false) String category,
+            @RequestParam(value = "price", required = false) BigDecimal price,
+            @RequestParam(value = "coverImage", required = false) MultipartFile coverImage,
+            @RequestParam(value = "freelancerId", required = false) Integer freelancerId) {
+
+        try {
+
+            Optional<ListService> optionalService = listServiceService.getListServiceById(id);
+
+            if (!optionalService.isPresent()) {
+                return new ResponseEntity<>("Service not found", HttpStatus.NOT_FOUND);
+            }
+
+
+            ListService existingService = optionalService.get();
+
+
+            if (title != null) existingService.setTitle(title);
+            if (miniDescription != null) existingService.setMiniDescription(miniDescription);
+            if (description != null) existingService.setDescription(description);
+            if (category != null) existingService.setCategory(category);
+            if (price != null) existingService.setPrice(price);
+            if (coverImage != null && !coverImage.isEmpty()) {
+                existingService.setCoverImage(coverImage.getBytes());
+            }
+            if (freelancerId != null) existingService.setFreelancerId(freelancerId);
+
+            existingService.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+
+            ListService updatedService = listServiceService.updateListService(id, existingService);
+
+            return ResponseEntity.ok(updatedService);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Error processing the cover image", HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Internal Server Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteListService(@PathVariable Integer id) {

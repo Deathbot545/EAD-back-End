@@ -18,7 +18,7 @@ public class ProfileService {
     private ProfileRepository profileRepository;
 
     public Optional<Profile> getProfileByUserId(Integer userId) {
-
+        System.out.println(profileRepository.findById(userId));
         return profileRepository.findById(userId);
     }
 
