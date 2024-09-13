@@ -17,7 +17,7 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
-    @GetMapping("/{Id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Profile> getProfileById(@PathVariable Integer id) {
         return profileService.getprofilebyID(id)
                 .map(ResponseEntity::ok)
