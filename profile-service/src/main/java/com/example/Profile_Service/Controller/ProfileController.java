@@ -22,6 +22,7 @@ public class ProfileController {
         return profileService.getprofilebyID(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+
     }
     @GetMapping("/user/{userId}")
     public ResponseEntity<Profile> getProfileByUserId(@PathVariable Integer userId) {
