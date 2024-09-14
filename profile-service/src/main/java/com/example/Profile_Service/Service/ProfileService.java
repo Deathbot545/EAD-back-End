@@ -21,6 +21,9 @@ public class ProfileService {
 
         return profileRepository.findById(userId);
     }
+    public Optional<Profile> getprofilebyID(Integer id){
+        return profileRepository.findById(id);
+    }
 
     public Profile updateProfile(Integer userId, Profile profile) {
         if (!profileRepository.existsByUserId(userId)) {
