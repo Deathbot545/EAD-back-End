@@ -19,7 +19,7 @@ public class ProfileService {
 
     public Optional<Profile> getProfileByUserId(Integer userId) {
 
-        return profileRepository.findById(userId);
+        return profileRepository.findByUserId(userId);
     }
     public Optional<Profile> getprofilebyID(Integer id){
         return profileRepository.findById(id);
