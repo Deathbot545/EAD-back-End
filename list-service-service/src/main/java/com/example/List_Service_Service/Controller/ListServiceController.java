@@ -57,7 +57,7 @@ public class ListServiceController {
 
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/service/{id}")
     public ResponseEntity<ListService> getListServiceById(@PathVariable Integer id) {
         Optional<ListService> service = listServiceService.getListServiceById(id);
         return service.map(ResponseEntity::ok)
@@ -112,7 +112,7 @@ public class ListServiceController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteListService(@PathVariable Integer id) {
         listServiceService.deleteListService(id);
         return ResponseEntity.noContent().build();

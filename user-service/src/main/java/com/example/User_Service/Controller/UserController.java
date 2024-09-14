@@ -23,7 +23,7 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping(path = "/{userId}")
+    @GetMapping(path = "/user/{userId}")
     public ResponseEntity<User> getUserWithId(@PathVariable("userId") int userId) {
         User user = userService.getUserfromId(userId);
         if (user != null) {
