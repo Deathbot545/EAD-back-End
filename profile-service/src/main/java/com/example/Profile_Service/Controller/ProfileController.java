@@ -31,17 +31,6 @@ public class ProfileController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/{userId}")
-    public ResponseEntity<Profile> updateProfile(@PathVariable Integer userId, @RequestBody Profile profile) {
-        try {
-            profile.setUserId(userId); // Set userId, not id
-            Profile updatedProfile = profileService.updateProfile(userId, profile);
-            return ResponseEntity.ok(updatedProfile);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
     @PostMapping("/createProfile")
     public ResponseEntity<Profile> createProfile(@RequestBody Profile profile) {
         try {
